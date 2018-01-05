@@ -22,14 +22,12 @@ test('kites express', function (t) {
 
     var kites = engine(config).use(kitesExpress());
     kites.init().then(() => {
-        console.log('app: ', kites.express.app);
         request.agent(kites.express.app)
             .get('/api/kites')
-            // .set('Accept', 'application/json')
-            // .buffer(true)
             .expect(200)
+            .expect('0.1.0')
             .then((res) => {
-                t.equal(res.body, '0.1.0')
+                t.equal(res.text, '0.1.0')
             })
     })
 })
