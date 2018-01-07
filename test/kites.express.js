@@ -25,9 +25,10 @@ test('kites express', function (t) {
         request.agent(kites.express.app)
             .get('/api/kites')
             .expect(200)
-            .expect('0.1.0')
+            .expect(/^kites@\d+.\d+.\d+$/)
             .then((res) => {
-                t.equal(res.text, '0.1.0')
+                t.true(/^kites@\d+.\d+.\d+$/.test(res.text), 'kites info')
             })
+            .catch(t.fail)
     })
 })
