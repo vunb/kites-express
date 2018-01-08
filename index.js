@@ -1,4 +1,4 @@
-var main = require('./lib/kites.express');
+var main = require('./lib/main');
 var config = require('./kites.config');
 
 module.exports = function (options) {
