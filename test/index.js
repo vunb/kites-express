@@ -1,7 +1,7 @@
 var path = require('path');
 
 [
-    'kites.express',
+    'express',
     // Always end
     'endTest',
 ].forEach(script => {
