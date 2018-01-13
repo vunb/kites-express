@@ -18,7 +18,7 @@ test('kites express', function (t) {
         // extensionsLocationCache: false
     }
 
-    t.plan(2);
+    t.plan(3);
 
     var kites = engine(config).use(kitesExpress());
     kites.init().then(() => {
@@ -37,6 +37,15 @@ test('kites express', function (t) {
             .expect(200)
             .then((res) => {
                 t.equal(res.body.msg, 'pong', 'kites ping')
+            })
+            .catch(t.fail)
+
+        request(kites.express.app)
+            .get('/api/ping?msg=hello')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                t.equal(res.body.msg, 'hello', 'kites hello')
             })
             .catch(t.fail)
     })
