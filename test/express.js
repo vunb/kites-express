@@ -50,3 +50,50 @@ test('kites express', function (t) {
             .catch(t.fail)
     })
 })
+
+test('kites use custom express', (t) => {
+    let config = {
+        logger: {
+            console: {
+                transport: 'console',
+                level: 'debug'
+            }
+        },
+        rootDirectory: __dirname,
+        tempDirectory: os.tmpdir(),
+        // extensionsLocationCache: false
+    }
+
+    t.plan(2);
+
+    let customApp = require('express')()
+    customApp.get('/custom-express', (req, res) => res.send('new text'))
+
+    let kites = engine(config).use(kitesExpress({
+        app: customApp,
+        static: __dirname
+    }));
+
+    kites.init().then(() => {
+        // request custom api
+        request(kites.express.app)
+            .get('/custom-express')
+            .expect(200)
+            .expect('new text')
+            .then((res) => {
+                t.pass('kites use custom express app')
+            })
+            .catch(t.fail)
+
+        // request static files
+        request(kites.express.app)
+            .get('/_static_file.css')
+            .expect('Content-Type', /css/)
+            .expect(200)
+            .expect('body { background: green}')
+            .then((res) => {
+                t.pass('kites download static files')
+            })
+            .catch(t.fail)
+    })
+})
