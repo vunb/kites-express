@@ -14,6 +14,7 @@ Extension Options
 * **httpPort**: Port which express listens to, default: `8000`
 * **views.engine**: View engine template, default: `ejs`
 * **views.path**: Path contains view template, default: `<root-project-location>/views`
+* **views.locals**: Default data send to view, default: `false`
 
 Extension Usage
 ===============
@@ -23,6 +24,12 @@ You can apply this extention manually tho [kites-engine](https://github.com/vunb
 ```js
 var kites = require('@kites/engine')()
 kites.use(require('@kites/express')())
+```
+
+Auto discover mode, just install the extension as a dependency:
+
+```bash
+npm install @kites/express
 ```
 
 License
