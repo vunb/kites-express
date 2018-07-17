@@ -8,6 +8,7 @@ module.exports = {
         httpPort: 8000,
         views: {
             engine: 'ejs',
+            locals: false,
             path: path.join(process.cwd(), 'views')
         }
     }
