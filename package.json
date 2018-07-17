@@ -1,6 +1,6 @@
 {
   "name": "@kites/express",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Handling HTTP Request for Kites",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "ejs": "^2.6.1",
     "express": "^4.16.2",
     "lodash": "^4.17.4"
   },

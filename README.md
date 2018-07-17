@@ -6,9 +6,15 @@ Handling HTTP request for Kites
 [![npm version](https://img.shields.io/npm/v/@kites/express.svg?style=flat)](https://www.npmjs.com/package/@kites/express)
 [![npm downloads](https://img.shields.io/npm/dm/@kites/express.svg)](https://www.npmjs.com/package/@kites/express)
 
+Features
+========
 
-Extension Options
-=================
+* Add express req/res method utilities: `req.param('paramName', 'defaultValue')`, `res.ok([data])`, `res.badRequest(err)`, `res.error(err)`, `res.serverError(err)`, `res.forbidden(err)`
+* Rendering template using with express response helpers: `res.view(['template', {data}])
+* Optional to enable `static` dir serve with extension options configuration
+
+Options
+=======
 
 * **static**: Public dir contains static files to serve client, default: `false`
 * **httpPort**: Port which express listens to, default: `8000`
@@ -16,8 +22,8 @@ Extension Options
 * **views.path**: Path contains view template, default: `<root-project-location>/views`
 * **views.locals**: Default data send to view, default: `false`
 
-Extension Usage
-===============
+Usage
+=====
 
 You can apply this extention manually tho [kites-engine](https://github.com/vunb/kites-engine)
 
@@ -31,6 +37,11 @@ Auto discover mode, just install the extension as a dependency:
 ```bash
 npm install @kites/express
 ```
+
+Notice
+======
+
+* Be sure either enable mode auto discover or `use` extensions programatically and respectively. If not, you may get message: **Error: listen EADDRINUSE :::8000**
 
 License
 =======
