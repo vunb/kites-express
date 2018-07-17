@@ -59,7 +59,7 @@ test('kites views engine', (t) => {
                 .expect('Content-Type', /html/)
                 .expect(200)
                 .then((res) => {
-                    t.equal(res.body, 'pong', 'about kites (page views)')
+                    t.equal(res.text, '<h2>About Kites</h2>\n<p>Template-based Web Application Framework!</p>', 'about kites (page views)')
                 })
                 .catch(t.fail)           
         })
