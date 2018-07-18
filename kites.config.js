@@ -6,6 +6,7 @@ module.exports = {
     options: {
         static: false,
         httpPort: 8000,
+        poweredBy: 'Kites',
         views: {
             engine: 'ejs',
             locals: false,
