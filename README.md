@@ -26,7 +26,7 @@ Options
 Usage
 =====
 
-You can apply this extention manually tho [kites-engine](https://github.com/vunb/kites-engine)
+You can apply this extention manually to [kites-engine](https://github.com/vunb/kites-engine)
 
 ```js
 var kites = require('@kites/engine')()
