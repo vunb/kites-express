@@ -16,8 +16,9 @@ Features
 Options
 =======
 
-* **static**: Public dir contains static files to serve client, default: `false`
+* **static**: Public directory contains static files to serve client, default: `false`
 * **httpPort**: Port which express listens to, default: `8000`
+* **poweredBy**: Header `X-Powered-By` will response to client, default: `Kites`
 * **views.engine**: View engine template, default: `ejs`
 * **views.path**: Path contains view template, default: `<root-project-location>/views`
 * **views.locals**: Default data send to view, default: `false`
@@ -25,7 +26,7 @@ Options
 Usage
 =====
 
-You can apply this extention manually tho [kites-engine](https://github.com/vunb/kites-engine)
+You can apply this extention manually to [kites-engine](https://github.com/vunb/kites-engine)
 
 ```js
 var kites = require('@kites/engine')()
