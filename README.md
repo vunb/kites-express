@@ -19,7 +19,9 @@ Options
 * **static**: Public directory contains static files to serve client, default: `false`
 * **httpPort**: Port which express listens to, default: `8000`
 * **poweredBy**: Header `X-Powered-By` will response to client, default: `Kites`
-* **views.engine**: View engine template, default: `ejs`
+* **views.name**: View engine template, default: `ejs`
+* **views.module**: View engine package which can be required, default: `ejs`
+* **views.renderer**: Options describe how kites knows to initialize, default: `renderFile`
 * **views.path**: Path contains view template, default: `<root-project-location>/views`
 * **views.locals**: Default data send to view, default: `false`
 
@@ -37,6 +39,21 @@ Auto discover mode, just install the extension as a dependency:
 
 ```bash
 npm install @kites/express
+```
+
+Example to configure `Handlebars` as view engine.
+
+```js
+{
+    views: {
+        name: 'hbs',
+        module: 'hbs',
+        ext: 'hbs',
+        renderer: '__express',
+        locals: false,
+        path: path.join(__dirname, '../views')
+    }
+}
 ```
 
 Notice
