@@ -1,6 +1,6 @@
 {
   "name": "@kites/express",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Handling HTTP Request for Kites",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,9 @@
   "homepage": "https://github.com/vunb/kites-express#readme",
   "devDependencies": {
     "@kites/engine": "^0.1.4",
+    "consolidate": "^0.15.1",
     "hbs": "^4.0.1",
+    "pug": "^2.0.3",
     "supertest": "^2.0.1",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.3"

@@ -78,7 +78,7 @@ test('kites views engine', (troot) => {
             })
     })
 
-    troot.test('custom view engine', (t) => {
+    troot.test('custom view engine: handlebars', (t) => {
         t.plan(2);
         var kites = engine(config);
 
@@ -86,9 +86,8 @@ test('kites views engine', (troot) => {
             .use(kitesExpress({
                 app: express(),
                 views: {
-                    name: 'hbs',
-                    module: 'hbs',
                     ext: 'hbs',
+                    engine: 'hbs',
                     renderer: '__express',
                     locals: false,
                     path: path.join(__dirname, '../views')
@@ -128,5 +127,38 @@ test('kites views engine', (troot) => {
             })
     })
 
+    troot.test('custom view engine: pug', (t) => {
+        t.plan(1);
+        var kites = engine(config);
+
+        kites
+            .use(kitesExpress({
+                app: express(),
+                views: {
+                    ext: 'pug',
+                    engine: 'consolidate'
+                }
+            }))
+            .init()
+            .then(() => {
+                // config express
+                var app = kites.express.app;
+                var locals = {
+                    user: {
+                        name: 'Vunb'
+                    }
+                }
+                app.get('/user', (req, res) => res.view('user', locals));
+
+
+                request(app)
+                    .get('/user')
+                    .expect(200)
+                    .then((res) => {
+                        t.deepEqual(res.text, '<p>Vunb</p>', 'pug view');
+                    })
+                    .catch(t.fail)
+            })
+    })
     troot.end();
 })

@@ -41,20 +41,53 @@ Auto discover mode, just install the extension as a dependency:
 npm install @kites/express
 ```
 
-Example to configure `Handlebars` as view engine.
+Example:
 
-```js
+Configure view engine: `Pug`
+
+```json
 {
-    views: {
-        name: 'hbs',
-        module: 'hbs',
-        ext: 'hbs',
-        renderer: '__express',
-        locals: false,
-        path: path.join(__dirname, '../views')
+    "views": {
+        "ext": "pug",
+        "engine": "consolidate"
     }
 }
 ```
+
+Configure view engine: `Handlebars`
+
+```json
+{
+    "views": {
+        "ext": "hbs",
+        "engine": "hbs",
+        "renderer": "__express",
+        "locals": false,
+        "path": "./views"
+    }
+}
+```
+
+Configure view engine: `Dust.js by LinkedIn`
+
+```json
+{
+    "views": {
+        "engine": "adaro",
+        "renderer": {
+            "method": "dust",
+            "arguments": [{
+                "cache": false,
+                "helpers": ["dust-helpers-whatevermodule"]
+            }]
+        }
+    }
+}
+```
+
+Event:
+
+* `expressConfigure:view`
 
 Notice
 ======
