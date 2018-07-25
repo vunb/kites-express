@@ -86,9 +86,8 @@ test('kites views engine', (troot) => {
             .use(kitesExpress({
                 app: express(),
                 views: {
-                    name: 'hbs',
-                    module: 'hbs',
                     ext: 'hbs',
+                    engine: 'hbs',
                     renderer: '__express',
                     locals: false,
                     path: path.join(__dirname, '../views')

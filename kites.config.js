@@ -26,8 +26,8 @@ module.exports = {
         httpPort: 8000,
         poweredBy: 'Kites',
         views: {
-            name: 'ejs',
-            module: 'ejs',
+            ext: 'ejs',
+            engine: 'ejs',
             renderer: 'renderFile',
             locals: false,
             path: path.join(process.cwd(), 'views')
