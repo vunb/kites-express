@@ -19,8 +19,8 @@ Options
 * **static**: Public directory contains static files to serve client, default: `false`
 * **httpPort**: Port which express listens to, default: `8000`
 * **poweredBy**: Header `X-Powered-By` will response to client, default: `Kites`
-* **views.name**: View engine template, default: `ejs`
-* **views.module**: View engine package which can be required, default: `ejs`
+* **views.ext**: View engine extension, default: `ejs`
+* **views.engine**: View engine package which can be required, default: `ejs`
 * **views.renderer**: Options describe how kites knows to initialize, default: `renderFile`
 * **views.path**: Path contains view template, default: `<root-project-location>/views`
 * **views.locals**: Default data send to view, default: `false`
