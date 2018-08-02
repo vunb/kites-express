@@ -5,6 +5,7 @@ Handling HTTP request for Kites
 [![Join the chat at https://gitter.im/nodevn/kites](https://badges.gitter.im/nodevn/kites.svg)](https://gitter.im/nodevn/kites)
 [![npm version](https://img.shields.io/npm/v/@kites/express.svg?style=flat)](https://www.npmjs.com/package/@kites/express)
 [![npm downloads](https://img.shields.io/npm/dm/@kites/express.svg)](https://www.npmjs.com/package/@kites/express)
+[![Travis](https://travis-ci.org/vunb/kites-express.svg?branch=stable)](https://travis-ci.org/vunb/kites-express)
 
 Features
 ========
