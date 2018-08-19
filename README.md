@@ -97,14 +97,12 @@ Configure view engine: `Dust.js by LinkedIn`
 }
 ```
 
-Event:
-
-* `expressConfigure:view`
-
 API
 ===
 
-Request:
+## Request:
+
+These helpers are utilities help you access kites and request information easily.
 
 * `req.kites` - Access kites from http request
 * `req.wantsJSON` - Flag indicating whether a request would like to receive a JSON response
@@ -122,7 +120,9 @@ info (req, res) => {
 }
 ```
 
-Response:
+## Response:
+
+These helpers are utilities help you handling response and generating template.
 
 * `res.view()` - an enhanced version of res.render
 * `res.ok(data)` - Return data for client, auto detect JSON needed from request.
@@ -132,6 +132,12 @@ Response:
 * `res.notFound(err)` - Not found
 * `res.forbidden(err)` - Forbidden
 * `res.serverError(err)` - Server error
+
+## Event:
+
+Some events can easily override to make program has the right behaviour.
+
+* `expressConfigure:view`
 
 Notice
 ======
