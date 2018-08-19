@@ -24,7 +24,7 @@ test('kites views engine', (troot) => {
     }
 
     troot.test('default view engine', (t) => {
-        t.plan(3);
+        t.plan(5);
 
 
         engine(config)
@@ -41,6 +41,8 @@ test('kites views engine', (troot) => {
                 app.get('/knock', (req, res) => res.ok({
                     greeting: 'Hello World!'
                 }));
+
+                app.get('/res-nok', (req, res) => res.nok(false));
 
                 app.get('/about', (req, res) => {
                     return res.view('about', {
@@ -63,7 +65,17 @@ test('kites views engine', (troot) => {
                     .then((res) => {
                         t.deepEqual(res.body, {
                             greeting: 'Hello World!'
-                        }, 'res.ok([data])');
+                        }, 'res.ok(data)');
+                    })
+                    .catch(t.fail)
+
+                request(app)
+                    .get('/res-nok')
+                    .then((res) => {
+                        t.equal(res.status, 500, 'res.nok(status)');
+                        t.deepEqual(res.body, {
+                            message: false
+                        }, 'res.nok(err)');
                     })
                     .catch(t.fail)
 
