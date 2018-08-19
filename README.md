@@ -90,6 +90,38 @@ Event:
 
 * `expressConfigure:view`
 
+API
+===
+
+Request:
+
+* `req.kites` - Access kites from http request
+* `req.wantsJSON` - Flag indicating whether a request would like to receive a JSON response
+* `req.param(name: String, default: Any)` - Get param from user request
+
+Ex:
+
+```js
+info (req, res) => {
+    req.kites.logger.info('Access kites from Request!');
+
+    return res.ok({
+        greeting: 'Hello World!'
+    });
+}
+```
+
+Response:
+
+* `res.view()` - an enhanced version of res.render
+* `res.ok(data)` - Return data for client, auto detect JSON needed from request.
+* `res.nok(err)` - Return error message for client, auto detect error, 400 default.
+* `res.error(err)` - Alias: res.nok()
+* `res.badRequest(err)` - Bad request
+* `res.notFound(err)` - Not found
+* `res.forbidden(err)` - Forbidden
+* `res.serverError(err)` - Server error
+
 Notice
 ======
 
