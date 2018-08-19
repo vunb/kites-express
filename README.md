@@ -100,7 +100,7 @@ Configure view engine: `Dust.js by LinkedIn`
 API
 ===
 
-## Request:
+### Request:
 
 These helpers are utilities help you access kites and request information easily.
 
@@ -120,7 +120,7 @@ info (req, res) => {
 }
 ```
 
-## Response:
+### Response:
 
 These helpers are utilities help you handling response and generating template.
 
@@ -133,7 +133,7 @@ These helpers are utilities help you handling response and generating template.
 * `res.forbidden(err)` - Forbidden
 * `res.serverError(err)` - Server error
 
-## Event:
+### Event:
 
 Some events can easily override to make program has the right behaviour.
 
