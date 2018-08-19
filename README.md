@@ -10,9 +10,20 @@ Handling HTTP request for Kites
 Features
 ========
 
-* Add express req/res method utilities: `req.param('paramName', 'defaultValue')`, `res.ok([data])`, `res.badRequest(err)`, `res.error(err)`, `res.serverError(err)`, `res.forbidden(err)`
-* Rendering template using with express response helpers: `res.view(['template', {data}])
-* Optional to enable `static` dir serve with extension options configuration
+* Add express req/res method utilities:
+  * `req.param('paramName', 'defaultValue')`
+  * `res.ok(data)`
+  * `res.nok(err)`
+  * `res.error(err)`
+  * `res.badRequest(err)`
+  * `res.serverError(err)`
+  * `res.forbidden(err)`
+* Rendering template using with express response helpers:
+  * `res.view('path/to/template', data, callback)`
+* Optional to enable static public directory, see extension options configuration
+  * `express.static: false` (default)
+  * `express.static: "path/to/public/directory"`
+
 
 Options
 =======
