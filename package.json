@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc && npm run lint && npm run copy",
     "clean": "rimraf ./dist",
-    "copy": "copyfiles LICENSE README.md kites.config.js dist",
+    "copy": "copyfiles typings/**/*.ts LICENSE README.md kites.config.js dist",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "tsc": "tsc",
     "test": "mocha -r ts-node/register src/**/*.spec.ts --exit",
@@ -67,6 +67,7 @@
   },
   "files": [
     "src",
+    "typings",
     "README.md",
     "kites.config.js"
   ]
