@@ -1,23 +1,19 @@
-import engine from '@kites/engine';
+import engine, { IKitesOptions } from '@kites/engine';
 import { expect } from 'chai';
-import * as os from 'os';
+import CreateMyExpress from 'express';
 import request from 'supertest';
 import express from './main';
 
-const config = {
-    discover: false,
+const config: IKitesOptions = {
     logger: {
         console: {
             level: 'debug',
             transport: 'console'
         }
-    },
-    rootDirectory: __dirname,
-    tempDirectory: os.tmpdir(),
-    // extensionsLocationCache: false
+    }
 };
 
-describe('EventCollectionEmitter', () => {
+describe('kites:express', () => {
     it('should return a valid awaitable promise', async () => {
 
         let kites = engine(config);
@@ -25,10 +21,39 @@ describe('EventCollectionEmitter', () => {
         kites.use(express());
 
         let app = await kites.init();
-
         let vResult = await request(app.express.app).get('/api/ping').expect(200);
 
         expect(vResult.body.msg, vResult.text).eq('pong');
     });
 
+    it('should use custom express', async () => {
+
+        let customApp = CreateMyExpress();
+
+        let kites = engine(config).use(express({
+            app: customApp,
+            static: __dirname + '..'
+        })).ready(() => {
+            customApp.get('/custom', (req, res) => res.send(req.kites.name));
+        });
+
+        await kites.init();
+
+        let vResult = await request(kites.express.app).get('/custom').expect(200);
+        expect(vResult.text, vResult.text).eq('kites');
+    });
+
+    it('should serve static files', async () => {
+
+        let kites = engine(config).use(express({
+            static: __dirname + '/..'
+        }));
+
+        await kites.init();
+
+        let vResult = await request(kites.express.app).get('/test/_static_file.css').expect(200);
+
+        expect(vResult.get('Content-Type')).match(/text\/css/);
+        expect(vResult.text).eq('body { background: green}');
+    });
 });

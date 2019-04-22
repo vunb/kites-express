@@ -11,7 +11,9 @@ export function mixinReq(kites: KitesInstance): RequestHandlerParams {
     return function _mixinReq(req: Request, res: Response, next: NextFunction) {
         // const req = (request as any);
         // Provide access to `kites` object
-        req.kites = req.kites || kites;
+        req.kites = kites;
+
+        kites.logger.info('Kites REQUESETTTT: ' + req.kites.name);
 
         // Flag indicating whether a request would like to receive a JSON response
         //

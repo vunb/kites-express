@@ -1,4 +1,4 @@
-import { KitesExtention, KitesInstance } from '@kites/engine';
+import { ExtentionOptions, KitesExtention, KitesInstance } from '@kites/engine';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -10,31 +10,19 @@ import { mixinRes } from './res';
 import { mixinResView } from './res.view';
 import { routes } from './routes';
 
-export interface IKitesExpressOptions {
-    [key: string]: any;
-    app?: Express;
-    engine?: any;
-    views?: string;
-    httpPort: string | number;
-    server?: any;
-}
-
 /**
  * Kites Express Extension
  */
 export class KitesExpress implements KitesExtention {
 
     name: string;
-    config: IKitesExpressOptions;
+    options: ExtentionOptions;
 
     constructor(
         private kites: KitesInstance,
-        private definition: KitesExtention
+        private opts: ExtentionOptions
     ) {
-        const opts = definition.options || {};
-        this.config = Object.assign({
-            httpPort: 3000
-        }, opts);
+        this.options = opts || {};
     }
 
     logStart() {
@@ -42,26 +30,25 @@ export class KitesExpress implements KitesExtention {
             const port = this.kites.express.server.address().port;
             this.kites.logger.info('kites server successfully started on http port: ' + port);
         } else {
-            this.kites.logger.warn('kites server successfully started, but can not found server, express port config: ' + this.config.httpPort);
+            this.kites.logger.warn('kites server successfully started, but can not found server, express port config: ' + this.options.httpPort);
         }
     }
 
     init() {
         const kites = this.kites;
-        const definition = this.definition;
-        let app = this.config.app;
+        let app = this.options.app;
 
         if (app) {
             kites.logger.info('Configuring routes for existing express app.');
-            this.configureViewEngine(app, this.config.views);
-            this.configureExpressApp(app, kites, definition);
+            this.configureViewEngine(app, this.options.views);
+            this.configureExpressApp(app, kites);
 
-            if (this.config.server) {
+            if (this.options.server) {
                 kites.logger.info('Using existing server instance.');
-                kites.express.server = this.config.server;
+                kites.express.server = this.options.server;
                 // deleting server option otherwise requests to list available extensions
-                if (this.definition.options != null) {
-                    delete this.definition.options.server;
+                if (this.options != null) {
+                    delete this.options.server;
                 }
             }
 
@@ -70,9 +57,9 @@ export class KitesExpress implements KitesExtention {
             kites.logger.info('Creating default express app.');
 
             // initializing views
-            this.configureViewEngine(app, this.config.views);
-            this.configureExpressApp(app, kites, definition);
-            this.startExpressApp(app, kites, this.config).then(() => {
+            this.configureViewEngine(app, this.options.views);
+            this.configureExpressApp(app, kites);
+            this.startExpressApp(app, kites, this.options).then(() => {
                 this.logStart();
             });
         }
@@ -81,7 +68,7 @@ export class KitesExpress implements KitesExtention {
     configureViewEngine(app: Express, opts: any) {
         var configView = this.kites.emit('express:config:view', app, opts);
         if (configView) {
-            this.kites.logger.debug('Configure express view engine from kites extension!');
+            this.kites.logger.debug('Express view engine has customized by user!');
             return;
         }
 
@@ -139,7 +126,7 @@ export class KitesExpress implements KitesExtention {
         }
     }
 
-    configureExpressApp(app: Express, kites: KitesInstance, definition: KitesExtention) {
+    configureExpressApp(app: Express, kites: KitesInstance) {
         kites.express.app = app;
 
         app.options('*', cors({
@@ -148,24 +135,26 @@ export class KitesExpress implements KitesExtention {
         }));
 
         // show powered by
-        if (!this.config.poweredBy) {
+        if (!this.options.poweredBy) {
             app.disable('x-powered-by');
         } else {
             app.use((req, res, next) => {
-                res.setHeader('X-Powered-By', this.config.poweredBy);
+                res.setHeader('X-Powered-By', this.options.poweredBy);
                 next();
             });
         }
 
         app.use(bodyParser.urlencoded({
             extended: false,
-            limit: this.config.inputRequestLimit || '10mb'
+            limit: this.options.inputRequestLimit || '10mb'
         }));
         app.use(bodyParser.json({
-            limit: this.config.inputRequestLimit || '10mb'
+            limit: this.options.inputRequestLimit || '10mb'
         }));
         app.use(cookieParser());
         app.use(cors());
+
+        kites.logger.debug('Express expanding  ...');
 
         app.use(mixinReq(kites));
         app.use(mixinRes(kites));
@@ -178,16 +167,16 @@ export class KitesExpress implements KitesExtention {
         kites.emit('expressConfigure', app);
 
         // config static file
-        if (typeof this.config.static === 'string') {
-            kites.logger.debug('Express serve static files at', this.config.static);
-            app.use(require('express').static(this.config.static));
+        if (typeof this.options.static === 'string') {
+            kites.logger.debug('Express serve static files at', this.options.static);
+            app.use(require('express').static(this.options.static));
         }
 
         kites.logger.debug('Express configuration has done!');
     }
 
-    startExpressApp(app: Express, kites: KitesInstance, options: IKitesExpressOptions) {
-        var httpPort = process.env.PORT || options.httpPort;
+    startExpressApp(app: Express, kites: KitesInstance, options: ExtentionOptions) {
+        var httpPort = process.env.PORT || options.httpPort || 3000;
         // create http server.
         kites.express.server = http.createServer(app);
         kites.logger.debug('Express is going to listen on ' + httpPort);
