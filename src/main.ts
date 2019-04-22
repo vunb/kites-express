@@ -4,12 +4,12 @@
  * @kites/express handles http requests for kites.
  */
 
-import { ExtentionOptions, KitesExtention, KitesInstance } from '@kites/engine';
+import { ExtensionOptions, KitesExtension, KitesInstance } from '@kites/engine';
 import * as _ from 'lodash';
 import config from '../kites.config';
 import { KitesExpress } from './express';
 
-export function createExpress(kites: KitesInstance, definition: KitesExtention) {
+export function createExpress(kites: KitesInstance, definition: KitesExtension) {
     kites.options.appPath = kites.options.appPath || '/';
 
     if (kites.options.appPath.substr(-1) !== '/') {
@@ -24,7 +24,7 @@ export function createExpress(kites: KitesInstance, definition: KitesExtention) 
     kites.initializeListeners.add(definition.name, kitesExpress.init.bind(kitesExpress));
 }
 
-export default function express(options?: ExtentionOptions) {
+export default function express(options?: ExtensionOptions) {
     // extend user options
     _.merge(config.options, options);
     config.directory = __dirname;

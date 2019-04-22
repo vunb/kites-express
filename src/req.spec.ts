@@ -21,7 +21,7 @@ describe('kites:express:req', () => {
 
         let kites = engine(config).use(express({
             app: customApp,
-            static: __dirname + '..'
+            static: __dirname + '/..'
         }))
         .ready(() => {
             customApp.get('/custom', (req, res) => res.send(req.kites.name));

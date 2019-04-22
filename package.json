@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/vunb/kites-express#readme",
   "devDependencies": {
-    "@kites/engine": "^1.2.0-beta.2",
+    "@kites/engine": "^1.2.0-beta.3",
     "@types/body-parser": "^1.17.0",
     "@types/chai": "4.1.6",
     "@types/cookie-parser": "^1.4.1",

@@ -1,4 +1,4 @@
-import { ExtentionOptions, KitesExtention, KitesInstance } from '@kites/engine';
+import { ExtensionOptions, KitesExtension, KitesInstance } from '@kites/engine';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -13,14 +13,14 @@ import { routes } from './routes';
 /**
  * Kites Express Extension
  */
-export class KitesExpress implements KitesExtention {
+export class KitesExpress implements KitesExtension {
 
     name: string;
-    options: ExtentionOptions;
+    options: ExtensionOptions;
 
     constructor(
         private kites: KitesInstance,
-        private opts: ExtentionOptions
+        private opts: ExtensionOptions
     ) {
         this.options = opts || {};
     }
@@ -175,7 +175,7 @@ export class KitesExpress implements KitesExtention {
         kites.logger.debug('Express configuration has done!');
     }
 
-    startExpressApp(app: Express, kites: KitesInstance, options: ExtentionOptions) {
+    startExpressApp(app: Express, kites: KitesInstance, options: ExtensionOptions) {
         var httpPort = process.env.PORT || options.httpPort || 3000;
         // create http server.
         kites.express.server = http.createServer(app);

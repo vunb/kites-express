@@ -1,4 +1,4 @@
-import { KitesExtention } from '@kites/engine';
+import { KitesExtension } from '@kites/engine';
 import { join } from 'path';
 
 /**
@@ -20,7 +20,7 @@ import { join } from 'path';
  *  },
  */
 
-const config: KitesExtention = {
+const config: KitesExtension = {
     main: 'src/main.js',
     name: 'express',
     options: {
