@@ -1,10 +1,11 @@
-var path = require('path');
+import { KitesExtention } from '@kites/engine';
+import { join } from 'path';
 
 /**
  * Kites express configuration
- * 
+ *
  * eg: config views engine template (full options)
- * 
+ *
  * "views": {
  *      "name": "adaro",
  *      "module": "adaro",
@@ -18,19 +19,22 @@ var path = require('path');
  *      }
  *  },
  */
-module.exports = {
+
+const config: KitesExtention = {
+    main: 'src/main.js',
     name: 'express',
-    main: 'lib/main.js',
     options: {
-        static: false,
-        httpPort: 8000,
+        httpPort: 3000,
         poweredBy: 'Kites',
+        static: false,
         views: {
-            ext: 'ejs',
             engine: 'ejs',
-            renderer: 'renderFile',
+            ext: 'ejs',
             locals: false,
-            path: path.join(process.cwd(), 'views')
+            path: join(process.cwd(), 'views'),
+            renderer: 'renderFile',
         }
     }
-}
+};
+
+export = config;

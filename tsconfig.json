@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+
+      /* Basic Options */
+      "target": "es6",
+      "module": "commonjs",
+      /* Enable all strict type-checking options. */
+      "strict": true,
+      "strictPropertyInitialization": false,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      /* Compile options*/
+      "outDir": "dist",
+      "sourceMap": true,
+      "declaration": true,
+      "lib": [
+        "es2015",
+        "es2017",
+        "es2017.object"
+      ],
+      "moduleResolution": "node"
+    },
+    "files": [
+      "./node_modules/@types/node/index.d.ts",
+      "./typings/express/index.d.ts"
+    ],
+    "include": [
+      "./typings/**/*.ts",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules",
+      "**/*.spec.ts"
+    ]
+  }
