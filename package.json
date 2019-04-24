@@ -6,13 +6,13 @@
   "scripts": {
     "build": "tsc && npm run lint && npm run copy",
     "clean": "rimraf ./dist",
-    "copy": "copyfiles typings/**/*.ts LICENSE README.md kites.config.js dist",
+    "copy": "copyfiles package.json kites.config.js LICENSE README.md dist",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "tsc": "tsc",
     "test": "mocha -r ts-node/register src/**/*.spec.ts --exit",
     "publish:beta": "npm publish dist/ --tag beta",
-    "release:beta": "release-it --preRelease=beta --verbose",
-    "release:final": "release-it --verbose"
+    "release:beta": "npm run build && release-it --preRelease=beta --verbose",
+    "release:final": "npm run build && release-it --verbose"
   },
   "repository": {
     "type": "git",

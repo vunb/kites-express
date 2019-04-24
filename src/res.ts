@@ -1,8 +1,8 @@
 import { KitesInstance } from '@kites/engine';
-import { NextFunction, Request, RequestHandlerParams, Response } from 'express-serve-static-core';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import * as _ from 'lodash';
 
-export function mixinRes(kites: KitesInstance): RequestHandlerParams {
+export function mixinRes(kites: KitesInstance): RequestHandler {
     return function _mixinRes(request: Request, response: Response, next: NextFunction) {
         const req = request as any;
         const res = response as any;

@@ -1,7 +1,5 @@
 {
     "compilerOptions": {
-      "baseUrl": ".",
-
       /* Basic Options */
       "target": "es6",
       "module": "commonjs",
@@ -23,11 +21,9 @@
       "moduleResolution": "node"
     },
     "files": [
-      "./node_modules/@types/node/index.d.ts",
-      "./typings/express/index.d.ts"
+      "./node_modules/@types/node/index.d.ts"
     ],
     "include": [
-      "./typings/**/*.ts",
       "src/**/*.ts"
     ],
     "exclude": [

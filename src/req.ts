@@ -1,13 +1,11 @@
-/// <reference types="../typings/express" />
 import { KitesInstance } from '@kites/engine';
-// import { NextFunction, Request, RequestParamHandler, Response } from 'express';
-import { NextFunction, Request, RequestHandlerParams, Response } from 'express-serve-static-core';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 
 /**
  * Export an express middleware
  * @param kites
  */
-export function mixinReq(kites: KitesInstance): RequestHandlerParams {
+export function mixinReq(kites: KitesInstance): RequestHandler {
     return function _mixinReq(req: Request, res: Response, next: NextFunction) {
         // const req = (request as any);
         // Provide access to `kites` object

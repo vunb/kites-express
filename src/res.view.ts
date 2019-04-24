@@ -1,9 +1,9 @@
 import { KitesInstance } from '@kites/engine';
-import { NextFunction, Request, RequestHandlerParams, Response } from 'express-serve-static-core';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import * as _ from 'lodash';
 import * as path from 'path';
 
-export function mixinResView(kites: KitesInstance): RequestHandlerParams {
+export function mixinResView(kites: KitesInstance): RequestHandler {
 
     /**
      * Adds `res.view()` (an enhanced version of res.render) and `res.guessView()` methods to response object.
