@@ -24,13 +24,13 @@ describe('kites:express:req', () => {
             static: __dirname + '/..'
         }))
         .ready(() => {
-            customApp.get('/custom', (req, res) => res.send(req.kites.name));
+            customApp.get('/custom', (req, res) => res.ok(req.kites.name));
         });
 
         await kites.init();
 
         let vResult = await request(kites.express.app).get('/custom').expect(200);
-        expect(vResult.text, vResult.text).eq('kites');
+        expect(vResult.body, 'name').eq('kites');
     });
 
 });

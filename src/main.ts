@@ -29,6 +29,7 @@ declare global {
 declare namespace KitesExpressExtension {
 
   type ApiOkResponse = (data?: any) => e.Response;
+  type ApiViewResponse = (view?: string, options?: any, cb?: Function) => e.Response;
   type ApiErrorResponse = (err: Error | string | any) => e.Response;
 
   export interface ApiRequest {
@@ -45,7 +46,7 @@ declare namespace KitesExpressExtension {
 
   export interface ApiResponse {
     ok: ApiOkResponse;
-    view: ApiOkResponse;
+    view: ApiViewResponse;
     error: ApiErrorResponse;
     serverError: ApiErrorResponse;
     notFound: ApiErrorResponse;
