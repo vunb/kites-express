@@ -2,7 +2,7 @@ import { ExtensionOptions, KitesExtension, KitesInstance } from '@kites/engine';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express, { Express } from 'express';
+import express, { Express, RequestHandler, Router } from 'express';
 import http from 'http';
 import * as _ from 'lodash';
 import { mixinReq } from './req';
@@ -10,17 +10,23 @@ import { mixinRes } from './res';
 import { mixinResView } from './res.view';
 import { routes } from './routes';
 
+interface KitesExtensionOptions extends ExtensionOptions {
+  routers: Router[];
+  routes: Array<string | RequestHandler>;
+}
+
 /**
  * Kites Express Extension
  */
 export class KitesExpress implements KitesExtension {
 
     name: string;
-    options: ExtensionOptions;
+    options: KitesExtensionOptions;
+    app: Express;
 
     constructor(
         private kites: KitesInstance,
-        private opts: ExtensionOptions
+        private opts: KitesExtensionOptions
     ) {
         this.options = opts || {};
     }
@@ -36,12 +42,12 @@ export class KitesExpress implements KitesExtension {
 
     init() {
         const kites = this.kites;
-        let app = this.options.app;
+        this.app = this.options.app;
 
-        if (app) {
+        if (this.app) {
             kites.logger.info('Configuring routes for existing express app.');
-            this.configureViewEngine(app, this.options.views);
-            this.configureExpressApp(app, kites);
+            this.configureViewEngine(this.app, this.options.views);
+            this.configureExpressApp(this.app, kites);
 
             if (this.options.server) {
                 kites.logger.info('Using existing server instance.');
@@ -53,13 +59,13 @@ export class KitesExpress implements KitesExtension {
             }
 
         } else {
-            app = express();
+            this.app = express();
             kites.logger.info('Creating default express app.');
 
             // initializing views
-            this.configureViewEngine(app, this.options.views);
-            this.configureExpressApp(app, kites);
-            this.startExpressApp(app, kites, this.options).then(() => {
+            this.configureViewEngine(this.app, this.options.views);
+            this.configureExpressApp(this.app, kites);
+            this.startExpressApp(this.app, kites, this.options).then(() => {
                 this.logStart();
             });
         }

@@ -4,7 +4,7 @@
  * @kites/express handles http requests for kites.
  */
 
-import {ExtensionOptions, KitesExtension, KitesInstance} from '@kites/engine';
+import {ExtensionOptions, IKites, KitesExtension, KitesInstance} from '@kites/engine';
 
 /// <reference types="express"/>
 import * as e from 'express';
@@ -17,6 +17,11 @@ declare global {
   namespace Express {
     interface Request extends KitesExpressExtension.ApiRequest {}
     interface Response extends KitesExpressExtension.ApiResponse {}
+  }
+
+  // extends kites properties
+  interface IKites {
+    express: KitesExpress;
   }
 }
 

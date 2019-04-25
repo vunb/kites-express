@@ -1,6 +1,6 @@
 import engine, { IKitesOptions } from '@kites/engine';
 import { expect } from 'chai';
-import CreateMyExpress from 'express';
+import createMyExpress from 'express';
 import request from 'supertest';
 import express from './main';
 
@@ -17,7 +17,7 @@ describe('kites:express:req', () => {
 
     it('should access kites from request', async () => {
 
-        let customApp = CreateMyExpress();
+        let customApp = createMyExpress();
 
         let kites = engine(config).use(express({
             app: customApp,
