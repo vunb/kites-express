@@ -1,6 +1,6 @@
 {
   "name": "@kites/express",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Handling HTTP Request for Kites",
   "main": "src/main.js",
   "scripts": {
