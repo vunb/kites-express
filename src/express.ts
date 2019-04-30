@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 import { mixinReq } from './req';
 import { mixinRes } from './res';
 import { mixinResView } from './res.view';
-import { routes } from './routes';
+import { defaultRouter } from './routes';
 
 interface KitesExtensionOptions extends ExtensionOptions {
   routers: Router[];
@@ -167,10 +167,10 @@ export class KitesExpress implements KitesExtension {
         app.use(mixinResView(kites));
 
         kites.emit('before:express:config', app);
-        routes(app, kites);
+        app.use('/_kites', defaultRouter());
 
         kites.logger.debug('Express starting configure ...');
-        kites.emit('expressConfigure', app);
+        kites.emit('express:config', app);
 
         // config static file
         if (typeof this.options.static === 'string') {

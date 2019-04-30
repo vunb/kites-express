@@ -1,18 +1,32 @@
-import { KitesInstance } from '@kites/engine';
-import { Express } from 'express';
+import {Router} from 'express';
 
-export function routes(app: Express, kites: KitesInstance) {
-    app.get('/api/kites', (req, res) => {
-        res.send(`${kites.name}@${kites.version}`);
-    });
+/**
+ * Export default router
+ */
+export function defaultRouter() {
+  const router = Router();
 
-    app.get('/api/ping', (req, res) => {
-        if (!kites.isInitialized) {
-            return res.status(403).send('Not yet initialized.');
-        }
-        res.ok({
-            kites: kites.version,
-            msg: req.param('msg', 'pong'),
-        });
+  /**
+   * get current kites version
+   */
+  router.get('/version', (req, res) => {
+    const kites = req.kites;
+    res.send(`${kites.name}@${kites.version}`);
+  });
+
+  /**
+   * check kites is ready
+   */
+  router.get('/ping', (req, res) => {
+    const kites = req.kites;
+    if (!kites.isInitialized) {
+      return res.forbidden('Not yet initialized.');
+    }
+    res.ok({
+      kites: kites.version,
+      msg: req.param('msg', 'pong'),
     });
+  });
+
+  return router;
 }

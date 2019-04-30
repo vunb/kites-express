@@ -21,7 +21,7 @@ describe('kites:express', () => {
         kites.use(express());
 
         let app = await kites.init();
-        let vResult = await request(app.express.app).get('/api/ping').expect(200);
+        let vResult = await request(app.express.app).get('/_kites/ping').expect(200);
 
         expect(vResult.body.msg, vResult.text).eq('pong');
     });

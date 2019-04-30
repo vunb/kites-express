@@ -13,7 +13,6 @@ Features
 * Add express req/res method utilities:
   * `req.param('paramName', 'defaultValue')`
   * `res.ok(data)`
-  * `res.nok(err)`
   * `res.error(err)`
   * `res.badRequest(err)`
   * `res.serverError(err)`
@@ -37,17 +36,63 @@ Options
 * **views.path**: Path contains view template, default: `<root-project-location>/views`
 * **views.locals**: Default data send to view, default: `false`
 
-Usage
-=====
+
+API Usage
+=========
+
+### Request:
+
+These helpers are utilities help you access kites and request information easily.
+
+* `req.kites` - Access kites from http request
+* `req.wantsJSON` - Flag indicating whether a request would like to receive a JSON response
+* `req.param(name: String, default: Any)` - Get param from user request
+
+Ex:
+
+```js
+info (req, res) => {
+  req.kites.logger.info('Access kites from Request!');
+
+  return res.ok({
+    greeting: 'Hello World!'
+  });
+}
+```
+
+### Response:
+
+These helpers are utilities help you handling response and generating template.
+
+* `res.view()` - an enhanced version of res.render
+* `res.ok(data)` - 200 OK. Return data for client, auto detect JSON needed from request.
+* `res.error(err)` - 40x, 50x Response. Return error message for client, auto detect error, 400 default.
+* `res.badRequest(err)` - 400 Bad request
+* `res.notFound(err)` - 404 Not found
+* `res.forbidden(err)` - 403 Forbidden
+* `res.serverError(err)` - 500 Server error
+
+### Kites Express Events:
+
+Some events can easily override to make program has the right behaviour.
+
+* `before:express:config` - Before express configured
+* `express:config` - Custom express configuration
+* `express:config:view` - Before view engine configured, if the event return false, kites express default engine will be used 
+
+Example
+=======
 
 You can apply this extention manually to [kites-engine](https://github.com/vunb/kites-engine)
 
 ```js
-var kites = require('@kites/engine')()
-kites.use(require('@kites/express')())
+import kites from '@kites/engine';
+import express from '@kites/express';
+
+kites().use(express());
 ```
 
-Auto discover mode, just install the extension as a dependency:
+Just install the extension as a dependency:
 
 ```bash
 npm install @kites/express
@@ -96,53 +141,6 @@ Configure view engine: `Dust.js by LinkedIn`
     }
 }
 ```
-
-API
-===
-
-### Request:
-
-These helpers are utilities help you access kites and request information easily.
-
-* `req.kites` - Access kites from http request
-* `req.wantsJSON` - Flag indicating whether a request would like to receive a JSON response
-* `req.param(name: String, default: Any)` - Get param from user request
-
-Ex:
-
-```js
-info (req, res) => {
-    req.kites.logger.info('Access kites from Request!');
-
-    return res.ok({
-        greeting: 'Hello World!'
-    });
-}
-```
-
-### Response:
-
-These helpers are utilities help you handling response and generating template.
-
-* `res.view()` - an enhanced version of res.render
-* `res.ok(data)` - Return data for client, auto detect JSON needed from request.
-* `res.nok(err)` - Return error message for client, auto detect error, 400 default.
-* `res.error(err)` - Alias: res.nok()
-* `res.badRequest(err)` - Bad request
-* `res.notFound(err)` - Not found
-* `res.forbidden(err)` - Forbidden
-* `res.serverError(err)` - Server error
-
-### Event:
-
-Some events can easily override to make program has the right behaviour.
-
-* `expressConfigure:view`
-
-Notice
-======
-
-* Be sure either enable mode auto discover or `use` extensions programatically and respectively. If not, you may get message: **Error: listen EADDRINUSE :::8000**
 
 License
 =======
