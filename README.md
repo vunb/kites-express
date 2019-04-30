@@ -46,7 +46,7 @@ These helpers are utilities help you access kites and request information easily
 
 * `req.kites` - Access kites from http request
 * `req.wantsJSON` - Flag indicating whether a request would like to receive a JSON response
-* `req.param(name: String, default: Any)` - Get param from user request
+* `req.param(name: string, default: any)` - Get param from user request
 
 Ex:
 
@@ -55,7 +55,8 @@ info (req, res) => {
   req.kites.logger.info('Access kites from Request!');
 
   return res.ok({
-    greeting: 'Hello World!'
+    from: 'kites',
+    message: 'Hello World!'
   });
 }
 ```
