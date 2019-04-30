@@ -28,7 +28,7 @@ Options
 =======
 
 * **static**: Public directory contains static files to serve client, default: `false`
-* **httpPort**: Port which express listens to, default: `8000`
+* **httpPort**: Port which express listens to, default: `3000`
 * **poweredBy**: Header `X-Powered-By` will response to client, default: `Kites`
 * **views.ext**: View engine extension, default: `ejs`
 * **views.engine**: View engine package which can be required, default: `ejs`
