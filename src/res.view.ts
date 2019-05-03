@@ -129,7 +129,8 @@ export function mixinResView(kites: KitesInstance): RequestHandler {
         relPathToView = relPathToView.slice(0, -1);
       }
 
-      var pathToViews = kites.express.options.views.path;
+      // var pathToViews = kites.express.options.views.path;
+      var pathToViews = req.app.get('views');
       var absPathToView = path.join(pathToViews, relPathToView);
       var absPathToLayout: any;
       var relPathToLayout;

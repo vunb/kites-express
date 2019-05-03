@@ -118,7 +118,9 @@ export class KitesExpress implements KitesExtension {
     try {
       // if `ext` is not sepecified.
       var ext = opts.ext || opts.engine;
-      var viewPath = opts.path || this.kites.defaultPath('views');
+      // get views path option from original arguments
+      var viewPath = this.kites.defaultPath(this.opts.views.path || 'views');
+
       // apply engine
       this.kites.logger.debug(`Configure view engine:
             + ext: ${opts.ext}

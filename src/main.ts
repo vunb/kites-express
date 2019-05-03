@@ -67,14 +67,15 @@ export function createExpress(kites: KitesInstance, definition: KitesExtension) 
       kites.options.express.httpPort || kites.options.httpPort;
   kites.express = definition;
 
-  var kitesExpress = new KitesExpress(kites, kites.options.express);
-  kites.initializeListeners.add(definition.name, kitesExpress.init.bind(kitesExpress));
+  var extension = new KitesExpress(kites, kites.options.express);
+  kites.initializeListeners.add(definition.name, extension.init.bind(extension));
 }
 
 export default function express(options?: ExtensionOptions) {
-  // extend user options
-  _.merge(config.options, options);
-  config.directory = __dirname;
-  config.main = createExpress;
-  return config;
+  // deep clone & extend user options
+  let definition = _.clone(config);
+  definition.options = _.extend({}, definition.options, options);
+  definition.directory = __dirname;
+  definition.main = createExpress;
+  return definition;
 }

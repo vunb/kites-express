@@ -21,20 +21,20 @@ import { join } from 'path';
  */
 
 const config: KitesExtension = {
-    main: 'src/main.js',
-    name: 'express',
-    options: {
-        httpPort: 3000,
-        poweredBy: 'Kites',
-        static: false,
-        views: {
-            engine: 'ejs',
-            ext: 'ejs',
-            locals: false,
-            path: join(process.cwd(), 'views'),
-            renderer: 'renderFile',
-        }
+  main: 'src/main.js',
+  name: 'express',
+  options: {
+    httpPort: 3000,
+    poweredBy: 'Kites',
+    static: false,
+    views: {
+      engine: 'ejs',
+      ext: 'ejs',
+      locals: false,
+      path: 'views',
+      renderer: 'renderFile',
     }
+  }
 };
 
 export = config;

@@ -1,7 +1,7 @@
 import engine, { IKitesOptions } from '@kites/engine';
 import {assert, expect} from 'chai';
 import createMyExpress from 'express';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import request from 'supertest';
 import express from './main';
 
@@ -14,11 +14,10 @@ describe('kites:express:res', () => {
   it('should use default view engine', async () => {
     let customApp = createMyExpress();
 
-    let kites = engine(config).use(express({
-        app: customApp,
-        views: {
-          path: join(__dirname, '../test/views')
-      }
+    let kites = engine({
+      appDirectory: resolve(__dirname, '../test/')
+    }).use(express({
+        app: customApp
     }))
     .ready(() => {
         customApp.get('/about', (req, res) => {
@@ -48,7 +47,6 @@ describe('kites:express:res', () => {
       app: customApp,
       views: {
         engine: 'hbs',
-        ext: 'hbs',
         locals: false,
         path: join(__dirname, '../test/views'),
         renderer: '__express',
@@ -74,8 +72,9 @@ describe('kites:express:res', () => {
     let kites = engine(config).use(express({
       app: customApp,
       views: {
-        engine: 'consolidate',
+        engine: 'pug',
         ext: 'pug',
+        path: join(__dirname, '../test/views'),
       }
     }))
     .ready(() => {
@@ -91,7 +90,7 @@ describe('kites:express:res', () => {
 
     await kites.init();
 
-    let vResult = await request(kites.express.app).get('/user').expect(200);
+    let vResult = await request(customApp).get('/user').expect(200);
     expect(vResult.text, 'use view engine: pug').eq('<p>Vunb</p>');
   });
 });
