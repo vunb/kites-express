@@ -20,9 +20,9 @@ declare global {
   }
 
   // extends kites properties
-  interface IKites {
-    express: KitesExpress;
-  }
+  // interface IKites {
+  //   express: KitesExpress;
+  // }
 }
 
 // Internal Module.
