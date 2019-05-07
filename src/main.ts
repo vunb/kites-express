@@ -55,6 +55,8 @@ declare namespace KitesExpressExtension {
   }
 }
 
+export { Express, Router, Request, Response, NextFunction, Application } from 'express';
+
 export function createExpress(kites: KitesInstance, definition: KitesExtension) {
   kites.options.appPath = kites.options.appPath || '/';
 
